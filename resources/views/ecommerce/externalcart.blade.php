@@ -33,7 +33,15 @@
                 <td colspan="6" class="text-center py-4">No items in cart</td>
             </tr>
         @else
+            @php
+    $totalValue = 0;
+@endphp
+
                           @foreach($orders as $order)
+                          
+                           @php
+        $totalValue += ($order->offer_amount ?? $order->amount) * $order->order_quantity;
+    @endphp
                         <tr>
                             <th scope="row">
                                 <p class="mb-0 py-4">{{ $order->product_name }}</p>
@@ -86,7 +94,7 @@
                             <h1 class="display-6 mb-4">Cart <span class="fw-normal">Total</span></h1>
                             <div class="d-flex justify-content-between mb-4">
                                 <h5 class="mb-0 me-4">Subtotal:</h5>
-                                <p class="mb-0">$96.00</p>
+                                <p class="mb-0" id="sub_total">${{$totalValue}}</p>
                             </div>
                             <div class="d-flex justify-content-between">
                                 <h5 class="mb-0 me-4">Shipping</h5>
@@ -94,133 +102,20 @@
                                     <p class="mb-0">Flat rate: $3.00</p>
                                 </div>
                             </div>
-                            <p class="mb-0 text-end">Shipping to Ukraine.</p>
+                            <p class="mb-0 text-end">Shipping to India.</p>
                         </div>
                         <div class="py-4 mb-4 border-top border-bottom d-flex justify-content-between">
                             <h5 class="mb-0 ps-4 me-4">Total</h5>
-                            <p class="mb-0 pe-4">$99.00</p>
+                            <p class="mb-0 pe-4" id="sub_total_final">${{$totalValue + 3}}</p>
                         </div>
                         <button class="btn btn-primary rounded-pill px-4 py-3 text-uppercase mb-4 ms-4"
-                            type="button">Proceed Checkout</button>
+                            type="button" data-bs-toggle="modal" data-bs-target="#loginModal">Proceed Checkout</button>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-    <!-- Cart Page End -->
-
-    <!-- Footer Start -->
-  <!--  <div class="container-fluid footer py-5 wow fadeIn" data-wow-delay="0.2s">
-        <div class="container py-5">
-            <div class="row g-4 rounded mb-5" style="background: rgba(255, 255, 255, .03);">
-                <div class="col-md-6 col-lg-6 col-xl-3">
-                    <div class="rounded p-4">
-                        <div class="rounded-circle bg-secondary d-flex align-items-center justify-content-center mb-4"
-                            style="width: 70px; height: 70px;">
-                            <i class="fas fa-map-marker-alt fa-2x text-primary"></i>
-                        </div>
-                        <div>
-                            <h4 class="text-white">Address</h4>
-                            <p class="mb-2">123 Street New York.USA</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-6 col-lg-6 col-xl-3">
-                    <div class="rounded p-4">
-                        <div class="rounded-circle bg-secondary d-flex align-items-center justify-content-center mb-4"
-                            style="width: 70px; height: 70px;">
-                            <i class="fas fa-envelope fa-2x text-primary"></i>
-                        </div>
-                        <div>
-                            <h4 class="text-white">Mail Us</h4>
-                            <p class="mb-2">info@example.com</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-6 col-lg-6 col-xl-3">
-                    <div class="rounded p-4">
-                        <div class="rounded-circle bg-secondary d-flex align-items-center justify-content-center mb-4"
-                            style="width: 70px; height: 70px;">
-                            <i class="fa fa-phone-alt fa-2x text-primary"></i>
-                        </div>
-                        <div>
-                            <h4 class="text-white">Telephone</h4>
-                            <p class="mb-2">(+012) 3456 7890</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-6 col-lg-6 col-xl-3">
-                    <div class="rounded p-4">
-                        <div class="rounded-circle bg-secondary d-flex align-items-center justify-content-center mb-4"
-                            style="width: 70px; height: 70px;">
-                            <i class="fab fa-firefox-browser fa-2x text-primary"></i>
-                        </div>
-                        <div>
-                            <h4 class="text-white">Yoursite@ex.com</h4>
-                            <p class="mb-2">(+012) 3456 7890</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="row g-5">
-                <div class="col-md-6 col-lg-6 col-xl-3">
-                    <div class="footer-item d-flex flex-column">
-                        <div class="footer-item">
-                            <h4 class="text-primary mb-4">Newsletter</h4>
-                            <p class="text-white mb-3">Dolor amet sit justo amet elitr clita ipsum elitr est.Lorem ipsum
-                                dolor sit amet, consectetur adipiscing elit consectetur adipiscing elit.</p>
-                            <div class="position-relative mx-auto rounded-pill">
-                                <input class="form-control rounded-pill w-100 py-3 ps-4 pe-5" type="text"
-                                    placeholder="Enter your email">
-                                <button type="button"
-                                    class="btn btn-primary rounded-pill position-absolute top-0 end-0 py-2 mt-2 me-2">SignUp</button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-6 col-lg-6 col-xl-3">
-                    <div class="footer-item d-flex flex-column">
-                        <h4 class="text-primary mb-4">Customer Service</h4>
-                        <a href="#" class=""><i class="fas fa-angle-right me-2"></i> Contact Us</a>
-                        <a href="#" class=""><i class="fas fa-angle-right me-2"></i> Returns</a>
-                        <a href="#" class=""><i class="fas fa-angle-right me-2"></i> Order History</a>
-                        <a href="#" class=""><i class="fas fa-angle-right me-2"></i> Site Map</a>
-                        <a href="#" class=""><i class="fas fa-angle-right me-2"></i> Testimonials</a>
-                        <a href="#" class=""><i class="fas fa-angle-right me-2"></i> My Account</a>
-                        <a href="#" class=""><i class="fas fa-angle-right me-2"></i> Unsubscribe Notification</a>
-                    </div>
-                </div>
-                <div class="col-md-6 col-lg-6 col-xl-3">
-                    <div class="footer-item d-flex flex-column">
-                        <h4 class="text-primary mb-4">Information</h4>
-                        <a href="#" class=""><i class="fas fa-angle-right me-2"></i> About Us</a>
-                        <a href="#" class=""><i class="fas fa-angle-right me-2"></i> Delivery infomation</a>
-                        <a href="#" class=""><i class="fas fa-angle-right me-2"></i> Privacy Policy</a>
-                        <a href="#" class=""><i class="fas fa-angle-right me-2"></i> Terms & Conditions</a>
-                        <a href="#" class=""><i class="fas fa-angle-right me-2"></i> Warranty</a>
-                        <a href="#" class=""><i class="fas fa-angle-right me-2"></i> FAQ</a>
-                        <a href="#" class=""><i class="fas fa-angle-right me-2"></i> Seller Login</a>
-                    </div>
-                </div>
-                <div class="col-md-6 col-lg-6 col-xl-3">
-                    <div class="footer-item d-flex flex-column">
-                        <h4 class="text-primary mb-4">Extras</h4>
-                        <a href="#" class=""><i class="fas fa-angle-right me-2"></i> Brands</a>
-                        <a href="#" class=""><i class="fas fa-angle-right me-2"></i> Gift Vouchers</a>
-                        <a href="#" class=""><i class="fas fa-angle-right me-2"></i> Affiliates</a>
-                        <a href="#" class=""><i class="fas fa-angle-right me-2"></i> Wishlist</a>
-                        <a href="#" class=""><i class="fas fa-angle-right me-2"></i> Order History</a>
-                        <a href="#" class=""><i class="fas fa-angle-right me-2"></i> Track Your Order</a>
-                        <a href="#" class=""><i class="fas fa-angle-right me-2"></i> Track Your Order</a>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>  -->
-    <!-- Footer End -->
-
-
-    <!-- Copyright Start -->
+    
     <div class="container-fluid copyright py-4">
         <div class="container">
             <div class="row g-4 align-items-center">
@@ -241,6 +136,103 @@
         </div>
     </div>
     <!-- Copyright End -->
+
+
+
+    <!-- Button to Open Modal -->
+<button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#loginModal">
+    Login / Contact
+</button>
+
+<!-- Modal -->
+<div class="modal fade" id="loginModal" tabindex="-1" aria-labelledby="loginModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content p-4 rounded-4 shadow-lg">
+
+      <div class="modal-header border-0 pb-0">
+        <h5 class="modal-title fw-bold" id="loginModalLabel">Sign Up</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+      </div>
+
+      <div class="modal-body pt-0">
+        <form id="loginForm">
+          <div class="mb-3">
+            <label for="name" class="form-label fw-semibold">Name</label>
+            <input type="text" class="form-control form-control-lg rounded-pill" id="name" name="name" placeholder="Enter your name" required>
+          </div>
+
+          <div class="mb-3">
+            <label for="email" class="form-label fw-semibold">Email</label>
+            <input type="email" class="form-control form-control-lg rounded-pill" id="email" name="email" placeholder="Enter your email" required>
+          </div>
+
+          <div class="mb-3">
+            <label for="phone" class="form-label fw-semibold">Phone Number</label>
+            <input type="tel" class="form-control form-control-lg rounded-pill" id="phone" name="phone" placeholder="Enter your phone" required>
+          </div>
+
+          <div class="d-grid mt-4">
+            <button type="submit" class="btn btn-primary btn-lg rounded-pill fw-bold">
+              Login
+            </button>
+          </div>
+        </form>
+      </div>
+
+      <div class="modal-footer border-0 justify-content-center pt-0">
+        <small class="text-muted">We respect your privacy. Your info is safe with us.</small>
+      </div>
+
+     <a href="#"
+   data-bs-target="#loginModal-login"
+   data-bs-toggle="modal"
+   data-bs-dismiss="modal">
+   Already have an account??
+</a>
+
+    </div>
+  </div>
+</div>
+
+
+
+
+<!-- Modal -->
+<div class="modal fade" id="loginModal-login" tabindex="-1" aria-labelledby="loginModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content p-4 rounded-4 shadow-lg">
+
+     
+
+      <div class="modal-body pt-0">
+        <form id="loginForm">
+          
+
+          <div class="mb-3">
+            <label for="email" class="form-label fw-semibold">Email</label>
+            <input type="email" class="form-control form-control-lg rounded-pill" id="email" placeholder="Enter your email" required>
+          </div>
+
+         
+
+          <div class="d-grid mt-4">
+            <button type="submit" class="btn btn-primary btn-lg rounded-pill fw-bold">
+              Login
+            </button>
+          </div>
+        </form>
+      </div>
+
+    
+    </div>
+  </div>
+</div>
+
+
+
+
+
+
 
 
     <!-- Back to Top -->
@@ -267,6 +259,50 @@
         }
     });
     </script>
+
+    <script>
+
+    	 $(document).ready(function() {
+
+
+    	 	$.ajaxSetup({
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        }
+    });
+
+    $('#loginForm').on('submit', function(e) {
+      e.preventDefault(); // Prevent form from submitting the traditional way
+      
+      var formData = $(this).serialize();
+    
+      $.ajax({
+        url: '{{ route('register.submit') }}',
+        type: 'POST',
+        data: formData,
+        dataType: 'json', // Automatically parse the response as JSON
+        success: function(response) {
+          // Check if the response indicates success
+          // Check if the response indicates success (boolean true)
+        if (response.status) {
+            // Redirect to the dashboard
+            window.location.href = response.redirect_url;
+        } else {
+            // Show error message from server
+            alert(response.message || 'Failed to submit the form. Please try again.');
+        }
+        },
+        error: function(xhr, status, error) {
+          let errMsg = 'An error occurred. Please try again.';
+        if(xhr.responseJSON && xhr.responseJSON.message){
+            errMsg = xhr.responseJSON.message;
+        }
+        alert(errMsg);
+        }
+      });
+    });
+  });
+    	</script>
 </body>
 
 </html>

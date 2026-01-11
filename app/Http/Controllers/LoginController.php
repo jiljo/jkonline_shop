@@ -5,6 +5,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Session;
 use App\Models\Safarionline;
+use App\Models\Users_registrations;
 class LoginController extends Controller
 {
     
@@ -52,6 +53,38 @@ class LoginController extends Controller
 }
 
 
+ public function Registersubmit(Request $request)
+{
+
+   
+   $validated = $request->validate([
+            'name' => 'required|string|max:250',
+            'email' => 'required|email|max:100',
+            'phone' => 'required|string|max:20'
+        ]);
 
 
+    
+      try {
+        // Save data to the database
+        $user = Users_registrations::create($validated);
+
+        // Return success response
+        return response()->json([
+            'status'  => true,
+            'message' => 'Data saved successfully',
+            'data'    => $user,
+            'redirect_url' => route('user-dashboard') 
+        ]);
+
+    } catch (\Exception $e) {
+        // If any error occurs (e.g., DB error), return error response
+        return response()->json([
+            'status'  => false,
+            'message' => 'Failed to save data',
+            'error'   => $e->getMessage()
+        ], 500);
+    }
+
+}
 }

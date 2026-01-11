@@ -97,6 +97,14 @@ Route::post('/save-order', [ExternalOrderController::class, 'saveOrder']);
 
 Route::get('/ecommerce/externalcart', [ExternalOrderController::class, 'FetchtemporaryOrder'])->name('externalcart');
 
+
+Route::post('/register-submit',[LoginController::class,'Registersubmit'])->name('register.submit');
+
+
+Route::get('/user-dashboard', function () {
+    return view('user-dashbord.dashboard'); // points to your file
+})->name('user-dashboard');
+
 /*
 
 study */

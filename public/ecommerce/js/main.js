@@ -160,10 +160,13 @@
 
 // Multiply the price value by the newVal
      var result = numericPriceValue * newVal;
+     var grand_result = result + 3;
     var result_label = result + ' $';
 
 // set text in element
 $('.total').text(result_label);
+$('#sub_total').text('$' + result);
+$('#sub_total_final').text('$ ' + grand_result);
         
         button.parent().parent().find('input').val(newVal);
     });

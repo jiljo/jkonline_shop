@@ -51,17 +51,17 @@
 
 
     <!-- Topbar Start -->
-    <div class="container-fluid px-5 d-none border-bottom d-lg-block">
+  <!--  <div class="container-fluid px-5 d-none border-bottom d-lg-block">
         <div class="row gx-0 align-items-center">
-            <div class="col-lg-4 text-center text-lg-start mb-lg-0">
+           <!-- <div class="col-lg-4 text-center text-lg-start mb-lg-0">
                 <div class="d-inline-flex align-items-center" style="height: 45px;">
                     <a href="#" class="text-muted me-2"> Help</a><small> / </small>
                     <a href="#" class="text-muted mx-2"> Support</a><small> / </small>
                     <a href="#" class="text-muted ms-2"> Contact</a>
 
                 </div>
-            </div>
-            <div class="col-lg-4 text-center d-flex align-items-center justify-content-center">
+            </div>-->
+          <!--  <div class="col-lg-4 text-center d-flex align-items-center justify-content-center">
                 <small class="text-dark">Call Us:</small>
                 <a href="#" class="text-muted">(+012) 1234 567890</a>
             </div>
@@ -102,7 +102,7 @@
                 </div>
             </div>
         </div>
-    </div>
+    </div>  -->
     <div class="container-fluid px-5 py-4 d-none d-lg-block">
         <div class="row gx-0 align-items-center text-center">
             <div class="col-md-4 col-lg-3 text-center text-lg-start">
@@ -115,7 +115,7 @@
                 </div>
             </div>
             <div class="col-md-4 col-lg-6 text-center">
-                <div class="position-relative ps-4">
+               <!-- <div class="position-relative ps-4">
                     <div class="d-flex border rounded-pill">
                         <input class="form-control border-0 rounded-pill w-100 py-3" type="text"
                             data-bs-target="#dropdownToggle123" placeholder="Search Looking For?">
@@ -129,10 +129,10 @@
                         <button type="button" class="btn btn-primary rounded-pill py-3 px-5" style="border: 0;"><i
                                 class="fas fa-search"></i></button>
                     </div>
-                </div>
+                </div>-->
             </div>
             <div class="col-md-4 col-lg-3 text-center text-lg-end">
-                <div class="d-inline-flex align-items-center">
+               <!--- <div class="d-inline-flex align-items-center">
                     <a href="#" class="text-muted d-flex align-items-center justify-content-center me-3"><span
                             class="rounded-circle btn-md-square border"><i class="fas fa-random"></i></i></a>
                     <a href="#" class="text-muted d-flex align-items-center justify-content-center me-3"><span
@@ -140,7 +140,7 @@
                     <a href="#" class="text-muted d-flex align-items-center justify-content-center"><span
                             class="rounded-circle btn-md-square border"><i class="fas fa-shopping-cart"></i></span>
                         <span class="text-dark ms-2">$0.00</span></a>
-                </div>
+                </div>-->
             </div>
         </div>
     </div>
