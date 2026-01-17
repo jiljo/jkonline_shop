@@ -44,7 +44,7 @@
     @endphp
                         <tr>
                             <th scope="row">
-                                <p class="mb-0 py-4">{{ $order->product_name }}</p>
+                                <p class="mb-0 py-4 preg" id="{{ $order->product_id }}">{{ $order->product_name }}</p>
                             </th>
                             <td>
                                 <p class="mb-0 py-4">{{ $order->product_category }}</p>
@@ -59,7 +59,7 @@
                                             <i class="fa fa-minus"></i>
                                         </button>
                                     </div>
-                                    <input type="text" class="form-control form-control-sm text-center border-0"
+                                    <input type="text" class="form-control form-control-sm text-center border-0 quan"
                                         value="{{ $order->order_quantity }}">
                                     <div class="input-group-btn">
                                         <button class="btn btn-sm btn-plus rounded-circle bg-light border plus">
@@ -205,7 +205,7 @@
      
 
       <div class="modal-body pt-0">
-        <form id="loginForm">
+        <form id="loginForm11">
           
 
           <div class="mb-3">
@@ -274,13 +274,21 @@
     $('#loginForm').on('submit', function(e) {
       e.preventDefault(); // Prevent form from submitting the traditional way
       
-      var formData = $(this).serialize();
+      var formData = new FormData(this); // ✅ real FormData
+        
+        var productId = $('.preg').attr('id');
+        var quantity = $('.quan').val();
+        formData.append('product_id', productId);
+        formData.append('quantity', quantity);
+
     
       $.ajax({
         url: '{{ route('register.submit') }}',
         type: 'POST',
         data: formData,
-        dataType: 'json', // Automatically parse the response as JSON
+         contentType: false, // REQUIRED
+        processData: false, // REQUIRED
+        cache: false,
         success: function(response) {
           // Check if the response indicates success
           // Check if the response indicates success (boolean true)

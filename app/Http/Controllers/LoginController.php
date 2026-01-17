@@ -6,6 +6,8 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Session;
 use App\Models\Safarionline;
 use App\Models\Users_registrations;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Cookie;
 class LoginController extends Controller
 {
     
@@ -63,11 +65,29 @@ class LoginController extends Controller
             'phone' => 'required|string|max:20'
         ]);
 
+   $productId = $request->product_id;
+   $quantity = $request->quantity;
 
+   
     
       try {
         // Save data to the database
         $user = Users_registrations::create($validated);
+          $lastInsertId = $user->id;
+        
+        $uid = $request->cookie('un');
+
+
+        DB::table('temporary_order')
+    ->where('unique_id', $uid)
+    ->update([
+        'product_id' => $productId,
+        'quantity'   => $quantity,
+        'user_id'    => $lastInsertId,
+        'updated_at' => now(),
+    ]);
+
+     Cookie::queue('emu', $lastInsertId, 60);
 
         // Return success response
         return response()->json([
@@ -87,4 +107,48 @@ class LoginController extends Controller
     }
 
 }
+
+
+
+
+public function DashboardData(Request $request)
+    {
+         
+      $uid = $request->cookie('emu');
+
+       if (!$uid) {
+            return view('user-dashbord.dashboard', ['orders' => collect()]);
+        }
+            
+
+       // $orders = ExternalorderModel::where('unique_id',$uid)->get();
+
+        $orders = DB::table('temporary_order as t')
+    ->join('products as p', 't.product_id', '=', 'p.pid')
+    ->select(
+        't.tid',
+        't.unique_id',
+        't.product_id',
+        't.quantity as order_quantity',
+        't.created_at as order_created_at',
+        't.updated_at as order_updated_at',
+        't.user_id',
+        'p.product_name',
+        'p.product_category',
+        'p.amount',
+        'p.offer_amount',
+        'p.product_image_path',
+        'p.product_specification',
+        'p.status',
+        'p.created_at as product_created_at',
+        'p.updated_at as product_updated_at',
+        'p.more_photos'
+    )
+    ->where('t.user_id', $uid)
+    ->get();
+
+
+       return view('user-dashbord.dashboard', compact('orders'));
+     }
+
 }

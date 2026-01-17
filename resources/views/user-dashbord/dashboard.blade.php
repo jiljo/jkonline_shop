@@ -20,17 +20,33 @@
                 </tr>
             </thead>
             <tbody>
+                @if($orders->isEmpty())
+            <tr>
+                <td colspan="6" class="text-center">No items in cart</td>
+            </tr>
+             @else
+            @php
+    $totalValue = 0;
+@endphp
+
+
+            @foreach($orders as $order)
+                          
+                           @php
+        $totalValue += ($order->offer_amount ?? $order->amount) * $order->order_quantity;
+    @endphp
+
                 <tr>
                     <td>
-                        <img src="https://via.placeholder.com/60" class="product-img me-2">
-                        Bluetooth Headphones
+                        <img src="{{ asset('uploads/' . $order->product_image_path) }}" class="product-img me-2">
+                        {{ $order->product_name }}
                     </td>
-                    <td>Audio</td>
-                    <td>$120.00</td>
+                    <td>{{ $order->product_category }}</td>
+                    <td id="amount">${{ number_format($order->offer_amount ?? $order->amount, 2) }}</td>
                     <td>
-                        <input type="number" value="1" class="form-control w-50">
+                        <input type="number" value="{{ $order->order_quantity }}" class="form-control w-50" id="quan">
                     </td>
-                    <td>$120.00</td>
+                    <td id="total">${{ number_format(($order->offer_amount ?? $order->amount) * $order->order_quantity, 2) }}</td>
                     <td>
                         <button class="btn btn-sm btn-outline-danger">
                             <i class="fa fa-trash"></i>
@@ -38,23 +54,8 @@
                     </td>
                 </tr>
 
-                <tr>
-                    <td>
-                        <img src="https://via.placeholder.com/60" class="product-img me-2">
-                        Gaming Mouse
-                    </td>
-                    <td>Accessories</td>
-                    <td>$45.00</td>
-                    <td>
-                        <input type="number" value="2" class="form-control w-50">
-                    </td>
-                    <td>$90.00</td>
-                    <td>
-                        <button class="btn btn-sm btn-outline-danger">
-                            <i class="fa fa-trash"></i>
-                        </button>
-                    </td>
-                </tr>
+                @endforeach
+                          @endif
 
             </tbody>
         </table>
@@ -69,7 +70,7 @@
                 <h5 class="mb-3">Order Summary</h5>
                 <div class="d-flex justify-content-between">
                     <span>Subtotal</span>
-                    <span>$210.00</span>
+                    <span id="subtotal">${{$totalValue}}</span>
                 </div>
                 <div class="d-flex justify-content-between">
                     <span>Shipping</span>
@@ -78,14 +79,33 @@
                 <hr>
                 <div class="d-flex justify-content-between fw-bold">
                     <span>Grand Total</span>
-                    <span>$213.00</span>
+                    <span id="final_value">${{$totalValue + 3}}</span>
                 </div>
 
-                <button class="btn btn-primary w-100 mt-3">
-                    Proceed to Checkout
-                </button>
+                <a href="{{ url('/payment') }}" class="btn btn-primary w-100 mt-3">
+    Proceed to Checkout
+</a>
             </div>
         </div>
     </div>
 </div>
 @endsection
+ <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
+<script>
+$(document).ready(function () {
+    $('#quan').on('change', function () {
+        let quantity = parseFloat($(this).val());
+        let amountText = $('#amount').text().trim();
+let amount = parseFloat(
+    amountText.replace('$', '').replace(/,/g, '')
+);
+
+let sum = quantity * amount;
+$('#total').text('$' + sum.toFixed(2));
+$('#subtotal').text('$' + sum.toFixed(2));
+let final_amount = sum + 3;
+$('#final_value').text('$' + final_amount.toFixed(2));
+    });
+});
+</script>

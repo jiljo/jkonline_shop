@@ -346,7 +346,7 @@
                                             <a href="#" class="d-block mb-2">{{ $product['product_category'] }}</a>
                                             <a href="#" class="d-block h4">{{ $product['product_name'] }}<br> G2356</a>
                                             <del class="me-2 fs-5">${{ $product['amount'] }}</del>
-                                            <span class="text-primary fs-5">$>{{ $product['offer_amount'] }}</span>
+                                            <span class="text-primary fs-5">${{ $product['offer_amount'] }}</span>
                                         </div>
                                     </div>
                                     <div

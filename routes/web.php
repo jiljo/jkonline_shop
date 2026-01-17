@@ -7,6 +7,7 @@ use App\Http\Controllers\AdminController;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Crypt;
 use App\Http\Controllers\ExternalOrderController;
+use App\Http\Controllers\RazorpayController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -101,9 +102,18 @@ Route::get('/ecommerce/externalcart', [ExternalOrderController::class, 'Fetchtem
 Route::post('/register-submit',[LoginController::class,'Registersubmit'])->name('register.submit');
 
 
-Route::get('/user-dashboard', function () {
+/*Route::get('/user-dashboard', function () {
     return view('user-dashbord.dashboard'); // points to your file
 })->name('user-dashboard');
+*/
+
+Route::get('/user-dashboard', [LoginController::class, 'DashboardData'])->name('user-dashboard');
+
+
+Route::get('/payment', [RazorpayController::class, 'index']);
+Route::post('/create-order', [RazorpayController::class, 'store']);
+Route::post('/payment-success', [RazorpayController::class, 'success']);
+
 
 /*
 
